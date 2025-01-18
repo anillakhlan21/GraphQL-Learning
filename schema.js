@@ -9,6 +9,15 @@ const {
 } = graphql;
 const _ = require('lodash');
 
+const CompanyType = new GraphQLObjectType({
+    name: 'Company',
+    fields: {
+        id: { type: GraphQLString },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString}
+    }
+})
+
 
 const UserType = new GraphQLObjectType({
     name: 'User',
@@ -22,6 +31,9 @@ const UserType = new GraphQLObjectType({
         age: {
             type: GraphQLInt
         },
+        company: {
+            type: CompanyType
+        }
     }
 })
 
