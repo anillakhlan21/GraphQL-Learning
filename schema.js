@@ -32,7 +32,10 @@ const UserType = new GraphQLObjectType({
             type: GraphQLInt
         },
         company: {
-            type: CompanyType
+            type: CompanyType,
+            resolve(parentValue){
+                return axios.get(`http://localhost:8000/companies/${parentValue.companyId}`).then(res=> res.data)
+            }
         }
     }
 })
