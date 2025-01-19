@@ -100,6 +100,27 @@ const Mutation = new GraphQLObjectType({
             resolve(parentValue, args){
                 return axios.delete(`http://localhost:8000/users/${args.id}`, args).then((res)=> res.data)
             }
+        },
+        editUser: {
+            type: UserType,
+            args: {
+                id: {
+                    type: GraphQLNonNull(GraphQLString),
+                },
+                firstName: {
+                    type: GraphQLString
+                },
+                age: {
+                    type: GraphQLInt
+                },
+                companyId: {
+                    type: GraphQLString
+                }
+            },
+            resolve(parentValue, args){
+                // If you want to replace whole object with new one, no matter given new fields then you can use "put" as well.
+                return axios.patch(`http://localhost:8000/users/${args.id}`, args).then((res)=> res.data)
+            }
         }
     }
 })
