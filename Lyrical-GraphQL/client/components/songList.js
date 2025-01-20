@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo';
+import { divide } from 'lodash';
 
 class SongList extends Component {
+    renderSongs(){
+        return this.props.data.songs.map(song=>
+             (
+                <li>
+                    {song.title}
+                </li>
+            )
+        )
+    }
     render() {
-        console.log(this.props)
+        if(this.props.data.loading){
+            return <div>
+                Loading...
+            </div>
+        }
 
         return <div>
-            Song List
+            {this.renderSongs()}
         </div>
     }
 }
