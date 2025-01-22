@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo';
+import { Link, hashHistory } from 'react-router';
 class CreateSong extends Component{
     constructor(props){
         super(props)
@@ -15,7 +16,7 @@ class CreateSong extends Component{
             }
         }).then(() => {
             console.log("Song created successfully!");
-            this.setState({ title: '' }); // Clear the input field after submission
+            hashHistory.push('/');
         }).catch(err => {
             console.error("Error creating song:", err);
         });
@@ -23,6 +24,7 @@ class CreateSong extends Component{
 
     render(){
         return <div>
+            <Link to="/">Back</Link>
             <h3>Create New Song</h3>
             <form onSubmit={this.onSubmit.bind(this)}>
                 <label>Title</label>
