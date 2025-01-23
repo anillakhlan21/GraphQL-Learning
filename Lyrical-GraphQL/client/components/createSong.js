@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo';
 import { Link, hashHistory } from 'react-router';
+import getSongsQuery from '../queries/getSongs';
 class CreateSong extends Component{
     constructor(props){
         super(props)
@@ -13,7 +14,8 @@ class CreateSong extends Component{
         this.props.mutate({
             variables: {
                 title: this.state.title
-            }
+            },
+            refetchQueries: [{query: getSongsQuery}]
         }).then(() => {
             console.log("Song created successfully!");
             hashHistory.push('/');
