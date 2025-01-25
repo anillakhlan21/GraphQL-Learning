@@ -11,7 +11,12 @@ class LyricList extends Component{
           <ul className='collection'>
                 { 
                 this.props.lyricList.map(lyric=>{
-                    return <li className="collection-item" key={lyric.id}>{lyric.content}</li>
+                    return <li className="collection-item" key={lyric.id}>
+                        {lyric.content}
+                        <i className="material-icons">
+                            thumb_up
+                            </i>
+                        </li>
                 })
                 }
             </ul>
