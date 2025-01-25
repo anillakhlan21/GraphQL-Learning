@@ -1,23 +1,17 @@
 import React, {Component} from 'react';
-import { graphql } from 'react-apollo';
-import query from '../queries/getLyricList';
 class LyricList extends Component{
     constructor(props){
         super(props);
-
     }
 
     render(){
-        if(this.props.data.loading){
-            return <div>...Loading</div>
-        }
         return (
             <div>
                 <h4>Lyric List</h4>
-          <ul>
+          <ul className='collection'>
                 { 
-                this.props.data.song.lyrics.map(lyric=>{
-                    return <li key={lyric.id}>{lyric.content}</li>
+                this.props.lyricList.map(lyric=>{
+                    return <li className="collection-item" key={lyric.id}>{lyric.content}</li>
                 })
                 }
             </ul>
@@ -29,4 +23,4 @@ class LyricList extends Component{
 
 }
 
-export default graphql(query, {options: (props)=>{ return {variables: {id: props.songId}}}})(LyricList);
+export default LyricList;
