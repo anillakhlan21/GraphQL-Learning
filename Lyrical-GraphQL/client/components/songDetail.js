@@ -8,6 +8,7 @@ class SongDetail extends Component{
     
     render(){
         const {song} = this.props.data;
+        console.log(this.props);
         if(!song) {return (<div>...Loading</div>)}
         return (
             <div>
@@ -22,4 +23,6 @@ class SongDetail extends Component{
 
 
 
-export default graphql(query, { options: (props)=> { return { variables: { id:  props.params.id}}}})(SongDetail);
+export default graphql(query, { options: (props)=> { 
+    console.log(props)
+    return { variables: { id:  props.params.id}}}})(SongDetail);

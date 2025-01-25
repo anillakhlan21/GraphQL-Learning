@@ -5,6 +5,7 @@ const mutate = gql`
         addLyricToSong(songId: $songId, content: $content){
             id,
             lyrics {
+                id,
                 content
             }
         }
