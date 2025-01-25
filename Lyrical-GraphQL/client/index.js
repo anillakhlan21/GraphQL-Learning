@@ -6,7 +6,7 @@ import { ApolloProvider } from 'react-apollo';
 import SongList  from './components/songList';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import App from './components/app'
-const client = new ApolloClient({});
+const client = new ApolloClient({dataIdFromObject: o=> o.id});
 import CreateSong from './components/createSong';
 import SongDetail from './components/songDetail';
 
