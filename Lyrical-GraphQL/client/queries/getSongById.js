@@ -7,7 +7,8 @@ const query = gql`
             title,
             lyrics{
                 id,
-                content
+                content,
+                likes
             }
         }
     }
