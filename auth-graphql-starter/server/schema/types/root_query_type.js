@@ -6,7 +6,10 @@ const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
     user: {
-      type: UserType
+      type: UserType,
+      resolve(parentValue, args, req){
+        return req.user;
+      }
     }
   }
 });
