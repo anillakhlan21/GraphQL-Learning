@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js --ignore client"
+    "dev-auth-graphql": "nodemon index.js --ignore client"
   },
   "author": "",
   "license": "ISC",
