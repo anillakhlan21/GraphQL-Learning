@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import HomeComponent from './components/home';
 
 const Root = () => {
   return (
     <div>
-      Auth Starter
+      <HomeComponent />
     </div>
   );
 };
