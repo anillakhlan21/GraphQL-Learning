@@ -1,10 +1,40 @@
-import React, { Component } from 'react';
-import {Router, Route} from 'react-router';
+import React, {Component} from 'react';
+import { Link } from 'react-router';
 
-class AppClass extends Component{
+
+class App extends Component{
+    renderForNonLoggedInUser(){
+        return (
+            <div>
+             <Link to="/login">LogIn</Link>
+             <Link to="/signup" >SignUp</Link>
+            </div>
+        )
+    }
+
+    renderForLoggedInUser(){
+        return (
+            <button>Logout</button>
+        )
+    }
     render(){
-        return <Router>
-            <Route path="/" Component></Route>
-        </Router>
+        return (
+            <div className="container">
+            <header>
+                <div className="header-buttons">
+                    {
+                        false ? this.renderForNonLoggedInUser() : this.renderForLoggedInUser()
+                    }
+                </div>
+    
+            </header>
+            <hr />
+            <div>
+                {this.props.children}
+            </div>
+        </div>
+        )
     }
 }
+
+export default App;

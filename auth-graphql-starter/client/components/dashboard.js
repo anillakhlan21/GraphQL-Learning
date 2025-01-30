@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-class HomeComponent extends Component {
+
+class Dashboard extends Component {
     render() {
         return (<div>
                 Welcome
@@ -8,4 +9,4 @@ class HomeComponent extends Component {
     }
 }
 
-export default HomeComponent;
+export default Dashboard;
