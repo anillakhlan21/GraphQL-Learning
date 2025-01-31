@@ -1,6 +1,7 @@
+import gql from 'graphql-tag';
 import React, {Component} from 'react';
 import { Link } from 'react-router';
-
+import { graphql } from 'react-apollo';
 
 class App extends Component{
     renderForNonLoggedInUser(){
@@ -12,9 +13,15 @@ class App extends Component{
         )
     }
 
+    onLogout(){
+        this.props.mutate().then(()=>{
+            console.log("Logout")
+        })
+    }
+
     renderForLoggedInUser(){
         return (
-            <button>Logout</button>
+            <button onClick={()=>this.onLogout()}>Logout</button>
         )
     }
     render(){
@@ -23,7 +30,7 @@ class App extends Component{
             <header>
                 <div className="header-buttons">
                     {
-                        false ? this.renderForNonLoggedInUser() : this.renderForLoggedInUser()
+                       this.props.data.user ? this.renderForLoggedInUser() : this.renderForNonLoggedInUser()
                     }
                 </div>
     
@@ -37,4 +44,21 @@ class App extends Component{
     }
 }
 
-export default App;
+const query = gql`
+    query GetUser{
+    user{
+        _id,
+        email
+    }
+    }
+`;
+
+const mutate = gql`
+    mutation Logout{
+        logout{
+            _id
+        }
+    }
+`
+
+export default graphql(mutate)(graphql(query)(App));
