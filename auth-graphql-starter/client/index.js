@@ -8,7 +8,7 @@ import App from './components/app';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-client';
 
-const client =  new ApolloClient(o=> o.id);
+const client =  new ApolloClient({dataIdFromObject: o=>o.id});
 
 const Root = () => {
   return (

@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import { graphql } from 'react-apollo';
-
+import getUserQuery  from '../queries/getUser';
 class App extends Component{
     renderForNonLoggedInUser(){
         return (
@@ -14,8 +14,8 @@ class App extends Component{
     }
 
     onLogout(){
-        this.props.mutate().then(()=>{
-            console.log("Logout")
+        this.props.mutate({ refetchQueries: [{ query: getUserQuery}]}).then(()=>{
+            console.log("Logout", this)
         })
     }
 
@@ -44,21 +44,14 @@ class App extends Component{
     }
 }
 
-const query = gql`
-    query GetUser{
-    user{
-        _id,
-        email
-    }
-    }
-`;
 
 const mutate = gql`
     mutation Logout{
         logout{
-            _id
+            id,
+            email
         }
     }
 `
 
-export default graphql(mutate)(graphql(query)(App));
+export default graphql(mutate)(graphql(getUserQuery)(App));

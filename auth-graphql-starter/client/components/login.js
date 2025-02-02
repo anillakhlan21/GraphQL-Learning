@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
-
+import getUser from '../queries/getUser';
 class Login extends Component{
 
     constructor(props){
@@ -11,7 +11,11 @@ class Login extends Component{
     }
 
     onLogin(){
-        this.props.mutate({variables: {email: "anil@gmail.com", password: "123"}})
+        const {email, password} = this.state;
+        this.props.mutate({variables: {email, password}, refetchQueries: [{ query: getUser}]}).then(()=>{
+            this.setState({email: "", passowrd: ""});
+        })
+        
     }
 
     render(){
@@ -30,6 +34,7 @@ class Login extends Component{
 const mutation = gql`
     mutation Login($email: String!, $password: String!){
         login(email: $email, password: $password){
+            id,
             email
         }
     }

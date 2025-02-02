@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-
+import getUser from '../queries/getUser';
 class Signup extends Component {
 
     constructor(props){
@@ -15,7 +15,7 @@ class Signup extends Component {
             return
         }
 
-        this.props.mutate({variables: {email: this.state.email, password: this.state.password}}).then((res)=>{
+        this.props.mutate({variables: {email: this.state.email, password: this.state.password},  refetchQueries: [{ query: getUser}]}).then((res)=>{
             console.log(res, "signed up")
         });
     }
@@ -38,6 +38,7 @@ class Signup extends Component {
 const mutation = gql`
     mutation Signup($email: String!, $password: String!){
         signup(email: $email, password: $password){
+            id,
             email
         }
     }
