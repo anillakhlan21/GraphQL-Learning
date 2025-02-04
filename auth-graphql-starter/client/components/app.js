@@ -27,14 +27,14 @@ class App extends Component{
     render(){
         return (
             <div className="container">
-            <header>
+            <nav className='nav-wrapper'>
                 <div className="header-buttons">
                     {
                        this.props.data.user ? this.renderForLoggedInUser() : this.renderForNonLoggedInUser()
                     }
                 </div>
     
-            </header>
+            </nav>
             <hr />
             <div>
                 {this.props.children}
