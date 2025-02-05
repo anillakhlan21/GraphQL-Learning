@@ -6,10 +6,10 @@ import getUserQuery  from '../queries/getUser';
 class App extends Component{
     renderForNonLoggedInUser(){
         return (
-            <div>
+            <span className="right">
              <Link to="/login">LogIn</Link>
              <Link to="/signup" >SignUp</Link>
-            </div>
+            </span>
         )
     }
 
@@ -26,14 +26,14 @@ class App extends Component{
     }
     render(){
         return (
-            <div className="container">
+            <div>
             <nav className='nav-wrapper'>
-                <div className="header-buttons">
+                <Link to="/" className="brand-logo left">
+                    Home
+                </Link>
                     {
                        this.props.data.user ? this.renderForLoggedInUser() : this.renderForNonLoggedInUser()
                     }
-                </div>
-    
             </nav>
             <hr />
             <div>
