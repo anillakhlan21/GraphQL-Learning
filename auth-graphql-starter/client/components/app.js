@@ -1,45 +1,52 @@
 import gql from 'graphql-tag';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { graphql } from 'react-apollo';
-import getUserQuery  from '../queries/getUser';
-class App extends Component{
-    renderForNonLoggedInUser(){
+import getUserQuery from '../queries/getUser';
+class App extends Component {
+    renderForNonLoggedInUser() {
         return (
-            <span className="right">
-             <Link to="/login">LogIn</Link>
-             <Link to="/signup" >SignUp</Link>
-            </span>
+            <div className="right">
+                <li>
+                    <Link to="/login">LogIn</Link>
+                </li>
+                <li>
+                    <Link to="/signup" >SignUp</Link>
+                </li>
+            </div>
         )
     }
 
-    onLogout(){
-        this.props.mutate({ refetchQueries: [{ query: getUserQuery}]}).then(()=>{
+    onLogout() {
+        this.props.mutate({ refetchQueries: [{ query: getUserQuery }] }).then(() => {
             console.log("Logout", this)
         })
     }
 
-    renderForLoggedInUser(){
+    renderForLoggedInUser() {
         return (
-            <button onClick={()=>this.onLogout()}>Logout</button>
+            <button onClick={() => this.onLogout()}>Logout</button>
         )
     }
-    render(){
+    render() {
         return (
             <div>
-            <nav className='nav-wrapper'>
-                <Link to="/" className="brand-logo left">
-                    Home
-                </Link>
+                <nav className='nav-wrapper'>
+                    <Link to="/" className="brand-logo left">
+                        Home
+                    </Link>
+                    <ul className="right">
                     {
-                       this.props.data.user ? this.renderForLoggedInUser() : this.renderForNonLoggedInUser()
+                        this.props.data.user ? this.renderForLoggedInUser() : this.renderForNonLoggedInUser()
                     }
-            </nav>
-            <hr />
-            <div>
-                {this.props.children}
+                    </ul>
+
+                </nav>
+                <hr />
+                <div>
+                    {this.props.children}
+                </div>
             </div>
-        </div>
         )
     }
 }
