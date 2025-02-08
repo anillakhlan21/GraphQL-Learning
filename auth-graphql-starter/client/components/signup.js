@@ -7,22 +7,31 @@ class Signup extends Component {
 
     constructor(props) {
         super(props)
-
-        this.state = { email: "", password: "", confirmPassword: "" };
+        this.state = { errors: [] };
     }
-    onSignup() {
-        if (this.state.password != this.state.confirmPassword) {
-            console.log("Wrong Password");
+
+    onSignup(state) {
+        if (state.password != state.confirmPassword) {
+            this.setState({ errors: ['Password Mismatch'] })
             return
         }
 
-        this.props.mutate({ variables: { email: this.state.email, password: this.state.password }, refetchQueries: [{ query: getUser }] }).then((res) => {
-            console.log(res, "signed up")
-        });
+        this.props.mutate({ variables: { email: state.email, password: state.password }, refetchQueries: [{ query: getUser }] }).then((res) => {
+            this.setState({ errors: [] })
+        }).catch(res => {
+            const errors = res.graphQLErrors.map(err => err.message);
+            this.setState({ errors });
+        })
     }
 
     render() {
-        return <AuthForm isSignUp={true} onSubmit={this.onSignup} buttonName="Sign Up" />
+        return (
+            <div>
+                <h3>Sign Up</h3>
+                <AuthForm errors={this.state.errors} isSignUp={true} onSubmit={this.onSignup.bind(this)} buttonName="Sign Up" />
+            </div>
+        )
+
     }
 }
 

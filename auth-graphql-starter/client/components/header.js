@@ -5,29 +5,30 @@ import { graphql } from 'react-apollo';
 import getUserQuery from '../queries/getUser';
 
 class Header extends Component {
-    renderForNonLoggedInUser() {
+    renderLoginButtons() {
         return (
-            <div className="right">
-                <li>
-                    <Link to="/login">LogIn</Link>
-                </li>
-                <li>
-                    <Link to="/signup" >SignUp</Link>
-                </li>
-            </div>
+            this.props.data.user ?
+                (
+                    <li>
+                        <Link onClick={this.onLogout.bind(this)}>Logout</Link>
+                    </li>
+                ) :
+                (
+                    <div>
+                        <li>
+                            <Link to="/login">LogIn</Link>
+                        </li >
+                        <li>
+                            <Link to="/signup" >SignUp</Link>
+                        </li>
+                    </div>
+                )
         )
     }
 
     onLogout() {
         this.props.mutate({ refetchQueries: [{ query: getUserQuery }] }).then(() => {
-            console.log("Logout", this)
         })
-    }
-
-    renderForLoggedInUser() {
-        return (
-            <button onClick={() => this.onLogout()}>Logout</button>
-        )
     }
 
     render() {
@@ -37,9 +38,7 @@ class Header extends Component {
                     Home
                 </Link>
                 <ul className="right">
-                    {
-                        this.props.data.user ? this.renderForLoggedInUser() : this.renderForNonLoggedInUser()
-                    }
+                    {this.renderLoginButtons()}
                 </ul>
 
             </nav>

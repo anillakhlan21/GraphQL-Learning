@@ -3,26 +3,36 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import getUser from '../queries/getUser';
 import AuthForm from './authForm';
+import { browserHistory } from 'react-router';
+import query from '../queries/getUser';
 class Login extends Component {
-
-    constructor(props) {
-        super(props)
-
-        this.state = { email: "", password: "" };
+    constructor(props){
+        super(props);
+        this.state = { errors: []}
     }
 
-    onLogin() {
-        const { email, password } = this.state;
-        this.props.mutate({ variables: { email, password }, refetchQueries: [{ query: getUser }] }).then(() => {
-            this.setState({ email: "", passowrd: "" });
+    onLogin(state) {
+        const { email, password } = state;
+        this.props.mutate({ variables: { email, password }, refetchQueries: [{ query: getUser }] }).catch((res)=>{
+            const errors = res.graphQLErrors.map(err=> err.message);
+            this.setState({errors})
+        }).then(()=>{
+            
         })
+    }
+
+    componentWillUpdate(nextProps){
+        debugger
+        if(!this.props.data.user && nextProps.data.user){
+            browserHistory.push('/dashboard');
+        }
     }
 
     render() {
         return (
             <div>
                 <h3>Login</h3>
-                <AuthForm isSignUp={false} onSubmit={this.onLogin} buttonName="Login" />
+                <AuthForm errors={this.state.errors} isSignUp={false} onSubmit={this.onLogin.bind(this)} buttonName="Login" />
             </div>
         )
 
@@ -38,4 +48,4 @@ const mutation = gql`
     }
 `
 
-export default graphql(mutation)(Login);
+export default graphql(mutation)(graphql(query)(Login));
