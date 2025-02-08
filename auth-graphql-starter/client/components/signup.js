@@ -3,11 +3,20 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import getUser from '../queries/getUser';
 import AuthForm from './authForm';
+import query from '../queries/getUser';
+import { hashHistory } from 'react-router';
+
 class Signup extends Component {
 
     constructor(props) {
         super(props)
         this.state = { errors: [] };
+    }
+
+    componentWillUpdate(nextProps){
+        if(!this.props.data.user && nextProps.data.user){
+            hashHistory.push('/dashboard');
+        }
     }
 
     onSignup(state) {
@@ -44,4 +53,4 @@ const mutation = gql`
     }
 `
 
-export default graphql(mutation)(Signup);
+export default graphql(query)(graphql(mutation)(Signup));

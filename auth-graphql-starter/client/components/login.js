@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import getUser from '../queries/getUser';
 import AuthForm from './authForm';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import query from '../queries/getUser';
 class Login extends Component {
     constructor(props){
@@ -22,9 +22,8 @@ class Login extends Component {
     }
 
     componentWillUpdate(nextProps){
-        debugger
         if(!this.props.data.user && nextProps.data.user){
-            browserHistory.push('/dashboard');
+            hashHistory.push('/dashboard');
         }
     }
 
