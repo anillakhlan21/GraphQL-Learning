@@ -16,11 +16,16 @@ class Login extends Component {
         this.props.mutate({ variables: { email, password }, refetchQueries: [{ query: getUser }] }).then(() => {
             this.setState({ email: "", passowrd: "" });
         })
-
     }
 
     render() {
-        return <AuthForm isSignUp={false} onSubmit={this.onLogin} buttonName="Login"/>
+        return (
+            <div>
+                <h3>Login</h3>
+                <AuthForm isSignUp={false} onSubmit={this.onLogin} buttonName="Login" />
+            </div>
+        )
+
     }
 }
 

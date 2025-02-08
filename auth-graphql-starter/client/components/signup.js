@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import getUser from '../queries/getUser';
+import AuthForm from './authForm';
 class Signup extends Component {
 
     constructor(props) {
@@ -21,19 +22,7 @@ class Signup extends Component {
     }
 
     render() {
-        return (
-            <div>
-                <form>
-                    <label>Email</label>
-                    <input onChange={(event) => this.setState({ email: event.target.value })} />
-                    <label>Password</label>
-                    <input onChange={(event) => this.setState({ password: event.target.value })} />
-                    <label>Confirm Password</label>
-                    <input onChange={(event) => this.setState({ confirmPassword: event.target.value })} />
-                    <button onClick={() => this.onSignup()}>SignUp</button>
-                </form>
-            </div>
-        )
+        return <AuthForm isSignUp={true} onSubmit={this.onSignup} buttonName="Sign Up" />
     }
 }
 

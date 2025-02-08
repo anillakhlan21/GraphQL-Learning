@@ -19,7 +19,7 @@ class AuthForm extends Component {
     render() {
         return (
             <div className="row">
-                <form className="col s4">
+                <form className="col s6">
                     <div className="input-field">
                         <label>Email</label>
                         <input onChange={(event) => this.setState({ email: this.target.value })} />
@@ -28,7 +28,7 @@ class AuthForm extends Component {
                         <label>Password</label>
                         <input onChange={(event) => this.setState({ password: event.target.value })} />
                     </div>
-                    {this.props.isSignUpForm && this.renderConfirmPasswordField()}
+                    {this.props.isSignUp && this.renderConfirmPasswordField()}
                     <button className="btn" onClick={() => this.props.onSubmit()}>{this.props.buttonName}</button>
                 </form>
             </div>
